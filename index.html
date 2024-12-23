@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f7c8d3;
+    }
+
+    /* Locked Page Styles */
+    #locked {
+      text-align: center;
+      animation: zoom-in 1.5s ease-in-out;
+    }
+    #locked h1 {
+      font-size: 2.5rem;
+      color: #4a4a4a;
+    }
+    #locked p {
+      font-size: 1.2rem;
+      color: #6a6a6a;
+    }
+
+    /* Main Page Styles */
+    #main {
+      display: none; /* Initially hidden */
+      height: 100vh;
+      width: 100vw;
+      background: url('https://i.ibb.co/sy9kVF4/2024122316165147.jpg') no-repeat
+      
+      center center/cover;
+      color: white;
+      text-align: center;
+      position: relative;
+      animation: zoom-out 1.5s ease-in-out;
+    }
+    .wish {
+      margin-top: 20%;
+      font-size: 3rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Buttons Section */
+    .buttons {
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      text-transform: uppercase;
+      background: linear-gradient(45deg, #ff6f61, #ffb74d);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Balloons Animation */
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 80px;
+      background-color: rgba(255, 99, 132, 0.7);
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      animation: float 5s infinite ease-in-out;
+    }
+    .balloon:nth-child(2) {
+      background-color: rgba(54, 162, 235, 0.7);
+      animation-duration: 6s;
+      left: 20%;
+    }
+    .balloon:nth-child(3) {
+      background-color: rgba(255, 206, 86, 0.7);
+      animation-duration: 4s;
+      left: 70%;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0% {
+        transform: translateY(100%);
+      }
+      50% {
+        transform: translateY(50%) scale(1.1);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+    @keyframes zoom-in {
+      from {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes zoom-out {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Locked Page -->
+  <div id="locked">
+    <h1>𝐊ɪᴅᴅᴏ ʙɪʀᴛʜ ᴅᴀʏ ᴀɴᴇ ᴋᴀ ᴡᴀɪᴛ ᴋʀ 😂!</h1>
+    <p>The page will be available on 24th December 2024, 12:00 AM IST.</p>
+  </div>
+
+  <!-- Main Page -->
+  <div id="main">
+    <div class="balloon" style="left: 10%;"></div>
+    <div class="balloon" style="left: 40%;"></div>
+    <div class="balloon" style="left: 70%;"></div>
+    <div class="wish">
+      🎉 𝐇ᴀᴘᴘʏ 𝐁ɪʀᴛʜᴅᴀʏ 𝐍ᴀɴᴅᴜ! 🎈 <br>
+    </div>
+    <div class="buttons">
+      <a href="card.html" class="button">Note 💓</a>
+      <a href="cake.html" class="button">cake 🎂</a>
+      <a href="treasure.html" class="button">💎 Treasure</a>
+    </div>
+  </div>
+
+  <script>
+    // Get the current time in IST and compare it with unlock time
+    function checkTime() {
+      const now = new Date();
+      const indiaTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
+      // Unlock date: 24th December 2024, 12:00 AM IST
+      const unlockDate = new Date('2024-12-24T12:00:00+05:30'); 
+
+      if (indiaTime >= unlockDate) {
+        // Show the main page
+        document.getElementById('main').style.display = 'block';
+        document.getElementById('locked').style.display = 'none';
+      } else {
+        // Show the locked page
+        document.getElementById('locked').style.display = 'block';
+        document.getElementById('main').style.display = 'none';
+      }
+    }
+
+    // Check the time on page load
+    checkTime();
+
+    // Optional: Update every minute to avoid refreshing
+    setInterval(checkTime, 60000);
+  </script>
+</body>
+</html>

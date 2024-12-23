@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treasure Hunt</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: #00aaff; /* Ocean sea water color */
+    }
+
+    /* Title Styling */
+    .title {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      z-index: 20;
+    }
+
+    /* Boat Styling */
+    .boat {
+      position: absolute;
+      width: 80px;
+      height: auto;
+      transition: all 2s ease-in-out;
+      bottom: 10%; /* Starting position */
+      left: 10%;
+      z-index: 10;
+    }
+
+    /* Island Styling */
+    .island {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .island:hover {
+      transform: scale(1.1);
+    }
+
+    /* Island Positions */
+    .island1 {
+      top: 20%;
+      left: 20%;
+      background-image: url('island.png');
+    }
+    .island2 {
+      top: 30%;
+      left: 60%;
+      background-image: url('island.png');
+    }
+    .island3 {
+      top: 50%;
+      left: 35%;
+      background-image: url('island.png');
+    }
+    .island4 {
+      top: 60%;
+      left: 70%;
+      background-image: url('island.png');
+    }
+    .island5 {
+      top: 75%;
+      left: 40%;
+      background-image: url('island.png');
+    }
+
+    /* Popup Styling */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      width: 300px;
+      padding: 20px;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .popup img {
+      max-width: 100px;
+      max-height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .popup .message {
+      color: #ffffff;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: white;
+      background: #ff4444;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background: #e33b3b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Title -->
+  <div class="title">Treasures</div>
+
+  <!-- Boat -->
+  <img src="boat.png" alt="Boat" class="boat" id="boat">
+
+  <!-- Islands -->
+  <div class="island island1" data-image="treasure1.png" data-message="Once again Happy Birthday 😁❤️"></div>
+  <div class="island island2" data-image="treasure2.png" data-message="coupoons 10X kuch bhi baat manwane ka 😂😁"></div>
+  <div class="island island3" data-image="treasure3.png" data-message="Saura ke sth tu hamesa khush rahe and teri shaadi usse hi hoo 😁🌝❤️"></div>
+  <div class="island island4" data-image="treasure4.png" data-message="Tera NEET mast jaye and tu AIIMS me jaye and mst doctor ban jaye 😁"></div>
+  <div class="island island5" data-image="treasure5.png" data-message="Tera Boards bht acha jaye ❤️"></div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <img id="popup-img" src="" alt="Treasure">
+    <div class="message" id="popup-message"></div>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+
+  <script>
+    const boat = document.getElementById('boat');
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    const popupMessage = document.getElementById('popup-message');
+
+    // Function to move the boat and show the popup
+    document.querySelectorAll('.island').forEach(island => {
+      island.addEventListener('click', function () {
+        const rect = this.getBoundingClientRect();
+        const boatX = rect.left + rect.width / 2 - boat.width / 2;
+        const boatY = rect.top + rect.height / 2 - boat.height / 2;
+
+        // Move the boat
+        boat.style.left = `${boatX}px`;
+        boat.style.top = `${boatY}px`;
+
+        // Show the popup with treasure image and message
+        setTimeout(() => {
+          popupImg.src = this.dataset.image;
+          popupMessage.textContent = this.dataset.message;
+          popup.style.display = 'flex';
+        }, 2000); // Wait for the boat animation to complete
+      });
+    });
+
+    // Function to close the popup
+    function closePopup() {
+      popup.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
